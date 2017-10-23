@@ -1,0 +1,26 @@
+shared_files:
+  - app/config/parameters.yml
+shared_folders:
+  - var
+  - web/uploads
+
+# Hooks get executed at different stages during deploy
+hooks:
+  # INSTALL: Put code in release folder
+  install_after: |
+    rm -Rf var/ # Get rid of the git var folder
+    exit 0
+
+  # SHAREDSYMLINK: Create symlink to shared files and folders
+  #                present at every release (config, logs, ...)
+  sharedsymlink_after: |
+    mkdir -p var/cache
+    mkdir -p var/logs
+    mkdir -p var/sessions
+    SYMFONY_ENV=prod composer install --no-dev --classmap-authoritative --prefer-dist
+    exit 0
+
+  # SYMLINK: Set current symlink to newest release
+  symlink_before: |
+    php bin/console -e=prod doctrine:schema:validate
+    exit 0
