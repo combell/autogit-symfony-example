@@ -1,3 +1,5 @@
+The version of Symfony in this example is end of life. [Check our example with Symfony 6](https://github.com/combell/autogit-symfony6-example).
+
 # Autogit: Symfony Example
 
 This repository show you step by step how you can deploy a Symfony app to Combell
